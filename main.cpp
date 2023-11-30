@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "raymath.h"
 
 int main(){
     const int windowWidth{384};
@@ -6,7 +7,9 @@ int main(){
     InitWindow(windowWidth, windowHeight, "Classy Clash");
 
     Texture2D worldMap = LoadTexture("./nature_tileset/OpenWorldMap24x24.png");
+    Vector2 mapPos{0.0, 0.0};
 
+    float speed{4.0};
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -14,8 +17,17 @@ int main(){
         BeginDrawing();
         ClearBackground(WHITE);
 
-        Vector2 worldMapPos{0.0, 0.0};
-        DrawTextureEx(worldMap, worldMapPos, 0, 4.0, WHITE);
+        Vector2 direction{};
+        if(IsKeyDown(KEY_A)) direction.x -= 1.0;
+        if(IsKeyDown(KEY_D)) direction.x += 1.0;
+        if(IsKeyDown(KEY_W)) direction.y -= 1.0;
+        if(IsKeyDown(KEY_S)) direction.y += 1.0;
+
+        if(Vector2Length(direction) != 0.0){
+            mapPos = Vector2Subtract(mapPos, Vector2Normalize(direction)), speed);
+        }
+        
+        DrawTextureEx(worldMap, mapPos, 0, 4.0, WHITE);
         EndDrawing();
     }
     UnloadTexture(worldMap);
