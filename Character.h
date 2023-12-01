@@ -17,9 +17,11 @@ private:
     int maxFrames{6};
     float updateTime{1.f/12.f};
     float SPEED{4.f};
+    Vector2 worldPosLastFrame{};
 public:
     Character();
     Vector2 getWorldPos(){ return worldPos; }
+    void undoMovement();
     void setScreenPos(int windowWidth, int windowHeight);
     void tick(float deltaTime);
 };

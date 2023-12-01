@@ -5,6 +5,7 @@
 int main(){
     const int windowWidth{384};
     const int windowHeight{384};
+    const float mapScale{4.0f};
     InitWindow(windowWidth, windowHeight, "Classy Clash");
 
     Texture2D worldMap = LoadTexture("./nature_tileset/OpenWorldMap24x24.png");
@@ -22,9 +23,18 @@ int main(){
         mapPos = Vector2Scale(knight.getWorldPos(), -1.f);
 
         // Draw Map
-        DrawTextureEx(worldMap, mapPos, 0, 4.0, WHITE);
+        DrawTextureEx(worldMap, mapPos, 0, mapScale, WHITE);
 
+        // check map bounds
         knight.tick(GetFrameTime());
+        
+        if(knight.getWorldPos().x < 0.f ||
+           knight.getWorldPos().y < 0.f ||
+           knight.getWorldPos().x + windowWidth > worldMap.width * mapScale ||
+           knight.getWorldPos().y + windowHeight > worldMap.height * mapScale)
+        {
+            knight.undoMovement();
+        }
 
         EndDrawing();
     }
