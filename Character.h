@@ -18,10 +18,11 @@ private:
     float updateTime{1.f/12.f};
     float SPEED{4.f};
     Vector2 worldPosLastFrame{};
+    float scale{4.0f};
 public:
-    Character();
+    Character(int winWidth, int winHeight);
     Vector2 getWorldPos(){ return worldPos; }
     void undoMovement();
-    void setScreenPos(int windowWidth, int windowHeight);
     void tick(float deltaTime);
+    Rectangle getCollisionRec();
 };
