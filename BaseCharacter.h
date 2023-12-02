@@ -26,7 +26,7 @@ protected:
     int frame{};
     int maxFrames{6};
     float updateTime{1.f/12.f};
-    float SPEED{4.f};
+    float speed{4.f};
     Vector2 worldPosLastFrame{};
     float scale{4.0f};
 private:
