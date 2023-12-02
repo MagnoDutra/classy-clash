@@ -1,8 +1,8 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "Character.h"
-#include "Prop.h"
 #include "Enemy.h"
+#include "Prop.h"
 
 int main(){
     const int windowWidth{384};
