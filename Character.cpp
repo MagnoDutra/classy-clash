@@ -39,16 +39,3 @@ void Character::tick(float deltaTime){
     Rectangle spriteDest{screenPos.x, screenPos.y, scale * width, scale * height};
     DrawTexturePro(texture, spriteSource, spriteDest, Vector2{}, 0.f, WHITE);        
 }
-
-void Character::undoMovement(){
-    worldPos = worldPosLastFrame;
-}
-
-Rectangle Character::getCollisionRec(){
-    return Rectangle{
-        screenPos.x,
-        screenPos.y,
-        width * scale,
-        height * scale
-    };
-}
