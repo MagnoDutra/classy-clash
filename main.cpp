@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Prop.h"
+#include <string>
 
 int main(){
     const int windowWidth{384};
@@ -44,6 +45,16 @@ int main(){
             prop.render(knight.getWorldPos());
         }
         
+        if(!knight.getAlive()){
+            DrawText("Game Over!", 55.f, 45.f, 40, RED);
+            EndDrawing();
+            continue;
+        }else{
+            std::string knightsHealth = "Health: ";
+            knightsHealth.append(std::to_string(knight.getHealth()), 0, 5);
+            DrawText(knightsHealth.c_str(), 55.f, 45.f, 40, RED);
+        }
+
         goblin.tick(GetFrameTime());
 
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
