@@ -23,11 +23,26 @@ int main(){
     };
 
     Enemy goblin{
-        Vector2{},
+        Vector2{800.f, 300.f},
         LoadTexture("characters/goblin_idle_spritesheet.png"),
         LoadTexture("characters/goblin_run_spritesheet.png")
     };
     goblin.setTarget(&knight);
+
+    Enemy slime{
+        Vector2{500.f, 700.f},
+        LoadTexture("characters/slime_idle_spritesheet.png"),
+        LoadTexture("characters/slime_run_spritesheet.png"),
+    };
+
+    Enemy* enemys[]{
+        &goblin,
+        &slime
+    };
+
+    for(auto enemy : enemys){
+        enemy->setTarget(&knight);
+    }
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -55,11 +70,15 @@ int main(){
             DrawText(knightsHealth.c_str(), 55.f, 45.f, 40, RED);
         }
 
-        goblin.tick(GetFrameTime());
+        for(auto enemy : enemys){
+            enemy->tick(GetFrameTime());
+        }
 
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-            bool isCollided = CheckCollisionRecs(goblin.getCollisionRec(), knight.getWeaponCollisionRec());
-            if(isCollided) { goblin.setAlive(false); }
+            for(auto enemy : enemys){
+                bool isCollided = CheckCollisionRecs(enemy->getCollisionRec(), knight.getWeaponCollisionRec());
+                if(isCollided) { enemy->setAlive(false); }
+            }
         }
         // check map bounds
         knight.tick(GetFrameTime());
