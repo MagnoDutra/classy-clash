@@ -45,6 +45,11 @@ int main(){
         }
         
         goblin.tick(GetFrameTime());
+
+        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+            bool isCollided = CheckCollisionRecs(goblin.getCollisionRec(), knight.getWeaponCollisionRec());
+            if(isCollided) { goblin.setAlive(false); }
+        }
         // check map bounds
         knight.tick(GetFrameTime());
         
